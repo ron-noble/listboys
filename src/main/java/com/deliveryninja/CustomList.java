@@ -1,24 +1,36 @@
 package com.deliveryninja;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class CustomList<E> implements List<E> {
 
+    private Object[] backedArray;
+    private int size;
+
+    public CustomList() {
+        this.backedArray = new Object[10];
+        this.size = 0;
+    }
+
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object o) {
+        for (int i = 0; i < backedArray.length; i++) {
+            if (backedArray[i] != null && backedArray[i].equals(o)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -29,87 +41,124 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] toBeReturned = new Object[size];
+        for (int i = 0; i < size; i++) {
+            toBeReturned[i] = backedArray[i];
+        }
+        return toBeReturned;
     }
 
     @Override
     public <T> T[] toArray(T[] ts) {
-        return null;
+        T[] toBeReturned = ts;
+        if (ts.length==0) {
+            toBeReturned = (T[]) new Object[size];
+        }
+        for (int i = 0; i < size; i++) {
+            toBeReturned[i] = (T) backedArray[i];
+        }
+        return toBeReturned;
     }
 
     @Override
     public boolean add(E e) {
-        return false;
+        backedArray[size] = e;
+        size++;
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        throw new UnsupportedOperationException();
+
     }
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        return false;
+        for (Object o : collection) {
+            if (!this.contains(o)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends E> collection) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean addAll(int i, Collection<? extends E> collection) {
-        return false;
+        return addAll(collection);
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        return false;
+
+        throw new UnsupportedOperationException();
+
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        return false;
+
+        throw new UnsupportedOperationException();
+
     }
 
     @Override
     public void clear() {
-
+        backedArray = new Object[10];
+        size = 0;
     }
 
     @Override
     public E get(int i) {
-        return null;
+        return (E) backedArray[i];
     }
 
     @Override
     public E set(int i, E e) {
-        return null;
+        E oldRef = (E) backedArray[i];
+        backedArray[i] = e;
+        return oldRef;
     }
 
     @Override
     public void add(int i, E e) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E remove(int i) {
-        return null;
+        throw new UnsupportedOperationException();
+
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        for (int i = 0; i < backedArray.length; i++) {
+            if (o!=null & o.equals(backedArray[i])){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        for (int i = backedArray.length-1; i >=0 ; i--) {
+            if (o!=null && o.equals(backedArray[i])){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public ListIterator<E> listIterator() {
-        return null;
+        return (ListIterator<E>) Arrays.asList(backedArray).listIterator(backedArray.length);
     }
 
     @Override
@@ -119,6 +168,10 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public List<E> subList(int i, int i1) {
-        return null;
+       CustomList<E> toBeReturned = new CustomList<>();
+        for (int j = i; j < i1 ; j++) {
+            toBeReturned.add((E) backedArray[j]);
+        }
+        return toBeReturned;
     }
 }

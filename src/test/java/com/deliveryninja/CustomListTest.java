@@ -63,55 +63,55 @@ public class CustomListTest {
         assertEquals(".com", element2);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void whenAddToSpecifiedIndex_thenExceptionIsThrown() {
-        new CustomList<>().add(0, null);
-    }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void whenAddAllToTheEnd_thenExceptionIsThrown() {
-        Collection<Object> collection = new ArrayList<>();
-        List<Object> list = new CustomList<>();
-        list.addAll(collection);
-    }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void whenAddAllToSpecifiedIndex_thenExceptionIsThrown() {
-        Collection<Object> collection = new ArrayList<>();
-        List<Object> list = new CustomList<>();
-        list.addAll(0, collection);
-    }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void whenRemoveAtSpecifiedIndex_thenExceptionIsThrown() {
-        List<Object> list = new CustomList<>();
-        list.add("icon4life");
-        list.remove(0);
-    }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void whenRemoveSpecifiedElement_thenExceptionIsThrown() {
-        List<Object> list = new CustomList<>();
-        list.add("icon4life");
-        list.remove("icon4life");
-    }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void whenRemoveAll_thenExceptionIsThrown() {
-        Collection<Object> collection = new ArrayList<>();
-        collection.add("icon4life");
-        List<Object> list = new CustomList<>();
-        list.removeAll(collection);
-    }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void whenRetainAll_thenExceptionIsThrown() {
-        Collection<Object> collection = new ArrayList<>();
-        collection.add("icon4life");
-        List<Object> list = new CustomList<>();
-        list.add("icon4life");
-        list.retainAll(collection);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void givenEmptyList_whenContains_thenFalseIsReturned() {
