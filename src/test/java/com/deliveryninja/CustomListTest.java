@@ -63,9 +63,13 @@ public class CustomListTest {
         assertEquals(".com", element2);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void whenAddToSpecifiedIndex_thenExceptionIsThrown() {
-        new CustomList<>().add(0, null);
+        CustomList<Object> objects = new CustomList<>();
+        objects.add(0, null);
+        assertFalse(objects.isEmpty());
+        assertEquals(objects.size(), 1);
+        assertEquals(objects.get(0), null);
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -82,11 +86,12 @@ public class CustomListTest {
         list.addAll(0, collection);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void whenRemoveAtSpecifiedIndex_thenExceptionIsThrown() {
         List<Object> list = new CustomList<>();
         list.add("icon4life");
         list.remove(0);
+        assertTrue(list.isEmpty());
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -96,12 +101,18 @@ public class CustomListTest {
         list.remove("icon4life");
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void whenRemoveAll_thenExceptionIsThrown() {
         Collection<Object> collection = new ArrayList<>();
         collection.add("icon4life");
         List<Object> list = new CustomList<>();
-        list.removeAll(collection);
+        list.add("icon4life");
+        list.add("yes!");
+        boolean removed = list.removeAll(collection);
+        assertTrue(removed);
+        assertArrayEquals(list.toArray(), collection.toArray());
+        assertEquals(1, list.size());
+        assertEquals("yes!", list.get(0));
     }
 
     @Test(expected = UnsupportedOperationException.class)
