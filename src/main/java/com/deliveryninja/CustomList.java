@@ -1,24 +1,41 @@
 package com.deliveryninja;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class CustomList<E> implements List<E> {
 
+    private int size = 0;
+    private static int initialCapacity = 10;
+    private Object[] data;
+
     @Override
     public int size() {
-        return 0;
+        return size;
+    }
+
+    CustomList() {
+        this(initialCapacity);
+    }
+
+    CustomList(int capacity){
+       data = new Object[capacity];
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object o) {
+        if (o == null)
+            return false;
+
+        for (int e = 0; e < size; e++) {
+            if (data[e].equals(o))
+                return true;
+        }
         return false;
     }
 
@@ -29,82 +46,109 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(data, size);
     }
 
     @Override
     public <T> T[] toArray(T[] ts) {
-        return null;
+        int tsSize = ts.length;
+
+        for(int i = 0; i < tsSize; i++) {
+            ts[i] = (T) get(i);
+        }
+
+        return ts;
     }
 
     @Override
     public boolean add(E e) {
-        return false;
+        data[size++] = e;
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        return false;
+
+        for(Object obj: collection) {
+            boolean contains = contains(obj);
+            if(!contains)
+                return false;
+        }
+
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends E> collection) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean addAll(int i, Collection<? extends E> collection) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void clear() {
-
+        data = new Object[initialCapacity];
+        size = 0;
     }
 
     @Override
     public E get(int i) {
-        return null;
+        return (E) data[i];
     }
 
     @Override
     public E set(int i, E e) {
-        return null;
+        E e1 = get(i);
+        data[i] = e;
+        return e1;
     }
 
     @Override
     public void add(int i, E e) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public E remove(int i) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+
+        for (int index  = 0; index < size; index ++) {
+            if(get(index).equals(o))
+                return index;
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+
+        for (int index  = size -1; index >= 0; index --) {
+            if(get(index).equals(o))
+                return index;
+        }
+        return -1;
     }
 
     @Override
@@ -119,6 +163,15 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public List<E> subList(int i, int i1) {
-        return null;
+        List customList = null;
+        int capacity = i1 - i;
+        if(i >= 0 && (i1 -1) < size && i1 > i && capacity > 0){
+            customList = new CustomList(capacity);
+
+            for(int index = i ;index < i1; index ++){
+                customList.add(get(index));
+            }
+        }
+        return customList;
     }
 }
