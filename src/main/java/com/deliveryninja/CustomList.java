@@ -26,7 +26,7 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return Arrays.stream(es).map(a -> (E) a).collect(toList()).iterator();
     }
 
     @Override
@@ -104,12 +104,6 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public E remove(int i) {
-//        Object o = es[i];
-//        es[i] = null;
-//        Object[] newEs = new Object[es.length - 1];
-//        System.arraycopy(es, 0, newEs, 0, es.length);
-//        es = newEs;
-//        return (E) o;
         throw new UnsupportedOperationException("E");
     }
 
