@@ -7,7 +7,6 @@ import static java.util.stream.Collectors.toList;
 public class CustomList<E> implements List<E> {
 
     private Object[] es = new Object[0];
-    private int tip = 0;
 
     @Override
     public int size() {
@@ -36,7 +35,8 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public <T> T[] toArray(T[] ts) {
-        return (T[]) Arrays.copyOf(es, 0, ts.getClass());
+        System.arraycopy(es, 0, ts, 0, es.length);
+        return ts;
     }
 
     @Override
@@ -50,8 +50,7 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public boolean remove(Object o) {
-        es[indexOf(o)] = null;
-        return true;
+        throw new UnsupportedOperationException("Nope");
     }
 
     @Override
@@ -61,25 +60,26 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public boolean addAll(Collection<? extends E> collection) {
-        Object[] newEs = new Object[es.length + collection.size()];
-        System.arraycopy(es, 0, newEs, 0, es.length);
-        es = newEs;
-        return true;
+//        Object[] newEs = new Object[es.length + collection.size()];
+//        System.arraycopy(es, 0, newEs, 0, es.length);
+//        es = newEs;
+//        return true;
+        throw new UnsupportedOperationException("E");
     }
 
     @Override
     public boolean addAll(int i, Collection<? extends E> collection) {
-        return false;
+        throw new UnsupportedOperationException("E");
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        return false;
+        throw new UnsupportedOperationException("E");
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        return false;
+        throw new UnsupportedOperationException("E");
     }
 
     @Override
@@ -94,12 +94,13 @@ public class CustomList<E> implements List<E> {
 
     @Override
     public E set(int i, E e) {
-        return null;
+        es[i] = e;
+        return (E) es[i];
     }
 
     @Override
     public void add(int i, E e) {
-        es[i] = e;
+        throw new UnsupportedOperationException("E");
     }
 
     @Override

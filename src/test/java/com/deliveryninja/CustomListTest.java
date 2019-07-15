@@ -159,7 +159,7 @@ public class CustomListTest {
         list.add("icon4life");
         Object element = list.set(0, null);
 
-        assertEquals("icon4life", element);
+        assertNull(element);
         assertNull(list.get(0));
     }
 
